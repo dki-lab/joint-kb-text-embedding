@@ -1,0 +1,10 @@
+torch
+tqdm
+scipy
+six
+dgl==0.4.3post2
+lmdb
+joblib
+marisa_trie
+mwparserfromhell
+wikipedia2vec
