@@ -1,34 +1,61 @@
 # kb-text-embed-study
 
 ## Installation
+
+### Install Python dependencies
 ```
 pip install -r requirements.txt
 ```
+
+### Install wiki2vec extension
+TODO
 
 ## Data preprocessing
 
 ### Download data
 ```
 # download wikidata Dec 2020 processed json files
+TODO
 
 # download wikidata triple files
+TODO
 
 # download wikipedia raw dump file in WIKIPEDIA_PROC_DATA
+TODO
 
+# download Few-shot link prediction dataset
+TODO
+
+# download Analogical Reasoning dataset
+TODO
 ```
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
 
-#### pre-process wikidata
+#### Pre-process wikidata
+```
+mkdir $WIKIDATA_PROC_JSON_DIR
+mkdir $WIKIDATA_TRIPLES_DIR
+python utils/create_proc_wikidata.py --input_json_file $RAW_WIKIDATA_JSON_FILE --out_dir $WIKIDATA_PROC_JSON_DIR
+python utils/generate_triples.py $WIKIDATA_PROC_JSON_DIR $WIKIDATA_TRIPLES_DIR/triples.tsv
 
-#### pre-process wikipedia raw dump
+# We shuffle triples.tsv and split it into train-valid-test files (wikidata_train.tsv wikidata_valid.tsv wikidata_test.tsv) in the ratio 0.85:0.075:0.075.
+```
+
+#### Pre-process wikipedia raw dump
 ```
 wikipedia2vec build-dump-db $WIKIPEDIA_PROC_DATA/DUMP_FILE $WIKIPEDIA_PROC_DATA/db_file
 wikipedia2vec build-dictionary $WIKIPEDIA_PROC_DATA/db_file $WIKIPEDIA_PROC_DATA/dict_file
 wikipedia2vec build-link-graph $WIKIPEDIA_PROC_DATA/db_file $WIKIPEDIA_PROC_DATA/dict_file $WIKIPEDIA_PROC_DATA/link_graph_file
 wikipedia2vec build-mention-db $WIKIPEDIA_PROC_DATA/db_file $WIKIPEDIA_PROC_DATA/dict_file $WIKIPEDIA_PROC_DATA/mentiondb_file
 ```
+
+#### Create Few-shot link prediction dataset
+TODO
+
+#### Create Analogical Reasoning dataset
+TODO
 
 ## Experiments
 
