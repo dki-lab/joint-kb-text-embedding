@@ -13,27 +13,27 @@ TODO
 ## Data preprocessing
 
 ### Download data
-```
-# download wikidata Dec 2020 processed json files
-TODO
 
-# download wikidata triple files
-TODO
+1. Download Wikidata triple files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EtvIP8Hyo6pIlgIEQbCsrwMBJAk9pf7SMooynsUkdzWBoA) and store directory path into environment variable `WIKIDATA_TRIPLES_DIR`
 
-# download wikipedia raw dump file in WIKIPEDIA_PROC_DATA
-TODO
+2. Download pre-processed Wikipedia files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EoT_yv2sKbFPj_RzhiyZc2wB9VNXL5lz6ExZ7tb7rwaW9A) and store directory path into environment variable `WIKIPEDIA_PROC_DATA`
 
-# download Few-shot link prediction dataset
-TODO
+4. Download Few-shot link prediction dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EpfqthRPp9FLrERxCnXwPSEBNryTYDzyx_4_HQ1yFlc9cg) and store directory path into environment variable `WIKIDATA_FS_LP_DIR`
 
-# download Analogical Reasoning dataset
-TODO
-```
+5. Download Analogical Reasoning dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EgfwJgbJFGhKiuq7chlV7AkBl8oqW4N2qvzScMzHEfIlHA?e=E2h1GR) and store directory path into environment variable $ANALOGY_DATASET_DIR
+
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
 
-#### Pre-process wikidata
+#### Download raw Wikidata and Wikipedia dumps
+
+TODO
+1. Download Wikidata raw dump file from [here]()
+2. Download Wikipedia raw dump file from [here]()
+
+
+#### Pre-process Wikidata
 ```
 mkdir $WIKIDATA_PROC_JSON_DIR
 mkdir $WIKIDATA_FS_LP_DIR
@@ -78,12 +78,12 @@ python -u train.py --model_name TransE_l2 --batch_size 1000 --log_interval 10000
 
 #### Run link prediction evaluation for Test set (Both in support)
 ```
-python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $DATA_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/entity_child_dict.json --sampler-type both
+python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $WIKIDATA_FS_LP_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/entity_child_dict.json --sampler-type both
 ```
 
 #### Run link prediction evaluation for Test set (Missing support)
 ```
-python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $DATA_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_missing_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/entity_child_dict.json --sampler-type both
+python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $WIKIDATA_FS_LP_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_missing_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/entity_child_dict.json --sampler-type both
 ```
 
 ### Analogical Reasoning
