@@ -17,6 +17,11 @@
 # limitations under the License.
 #
 
+# ******************************
+# NOTICE
+# This file was modified by Vardaan Pahuja for this project (email: pahuja.9@osu.edu)
+# ******************************
+
 import math
 import numpy as np
 import scipy as sp

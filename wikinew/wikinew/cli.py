@@ -1,6 +1,11 @@
 # -*- coding: utf-8 -*-
 # License: Apache License 2.0
 
+# ******************************
+# NOTICE
+# This file was modified by Vardaan Pahuja for this project (email: pahuja.9@osu.edu)
+# ******************************
+
 import click
 import functools
 import logging

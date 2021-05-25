@@ -1,5 +1,7 @@
 # kb-text-embed-study
 
+Code for the ACL 2021 paper "A Systematic Investigation of KB-Text Embedding Alignment at Scale"
+
 ## Installation
 
 ### Install Python dependencies

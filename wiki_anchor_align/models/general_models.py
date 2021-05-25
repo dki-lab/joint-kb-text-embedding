@@ -16,6 +16,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
+
+# ******************************
+# NOTICE
+# This file was modified by Vardaan Pahuja for this project (email: pahuja.9@osu.edu)
+# ******************************
+
 """
 Graph Embedding Model
 1. TransE
