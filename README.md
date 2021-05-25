@@ -8,7 +8,11 @@ pip install -r requirements.txt
 ```
 
 ### Install wiki2vec extension
-TODO
+```
+cd wikinew/
+./cythonize.sh
+python setup.py install
+```
 
 ## Data preprocessing
 
@@ -20,10 +24,10 @@ TODO
 
 4. Download Few-shot link prediction dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EpfqthRPp9FLrERxCnXwPSEBNryTYDzyx_4_HQ1yFlc9cg) and store directory path into environment variable `WIKIDATA_FS_LP_DIR`
 
-5. Download Analogical Reasoning dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EgfwJgbJFGhKiuq7chlV7AkBl8oqW4N2qvzScMzHEfIlHA?e=E2h1GR) and store directory path into environment variable $ANALOGY_DATASET_DIR
+5. Download Analogical Reasoning dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EgfwJgbJFGhKiuq7chlV7AkBl8oqW4N2qvzScMzHEfIlHA?e=E2h1GR) and store directory path into environment variable `ANALOGY_DATASET_DIR`
 
 
-### Pre-process data
+<!-- ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
 
 #### Download raw Wikidata and Wikipedia dumps
@@ -55,7 +59,7 @@ wikipedia2vec build-mention-db $WIKIPEDIA_PROC_DATA/db_file $WIKIPEDIA_PROC_DATA
 TODO
 
 #### Create Analogical Reasoning dataset
-TODO
+TODO -->
 
 ## Experiments
 
