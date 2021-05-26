@@ -104,20 +104,9 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
     # train KE model
     #******************************************************************************
     
-    # print('start of epoch')
-    # print(model.proj_layer.bias)
-
     for step in range(0, args.max_step_per_epoch):
-        # print('step = {}'.format(step))
         start1 = time.time()
-        # print(train_sampler)
         pos_g, neg_g = next(train_sampler)
-
-        # print('pos_g = {}'.format(pos_g))
-        # print('no. of nodes = {}'.format(pos_g.number_of_nodes()))
-        # print('no. of edges = {}'.format(pos_g.number_of_edges()))
-
-        # print('is_multigraph = {}'.format(pos_g.is_multigraph))
 
         sample_time += time.time() - start1
 
@@ -129,61 +118,29 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
         proj_layer_optimizer.zero_grad()
 
         loss, log = model.forward(pos_g, neg_g, gpu_id) # KE model update
-        # loss = 0
-        # log = {}
-        # print('pos_g.ndata[emb] = {}'.format(pos_g.ndata['emb'].size()))
-        # print('pos_g.ndata[id] = {}'.format(pos_g.ndata['id'].size()))
-
-        # title_list = list(filter(lambda x: x, map(lambda x:wiki_link_dict.get(id2entity_map[x.item()], None), pos_g.ndata['id'])))
-
-        # valid_node_ids = list(map(lambda x:x[0], filter(lambda x:None not in x[1], map(lambda x:(x[0], [word2id_map.get(y.lower(), None) for y in x[1].split()]), filter(lambda x: x[1], map(lambda x:(x[0], wiki_link_dict.get(id2entity_map[x[1].item()], None)), enumerate(pos_g.ndata['id'])))))))
+        
         valid_node_ids = list(map(lambda x:x[0], filter(lambda x:x[1]!=-1, map(lambda x:(x[0], dictionary.get_entity_index(x[1])), filter(lambda x: x[1], map(lambda x:(x[0], wiki_link_dict.get(id2entity_map[x[1].item()], None)), enumerate(pos_g.ndata['id'])))))))
 
-        # print('valid_node_ids = {}'.format(valid_node_ids))
         
         kb_embed = pos_g.ndata['emb'][valid_node_ids, :] # apply projection to KB embedding
-        # print('kb_embed = {}'.format(kb_embed.size()))
         if not use_input_embedding:
             sg_embeds = model.proj_layer(sg_model.emb0_lookup(torch.LongTensor(list(filter(lambda x:x!=-1, map(lambda x:dictionary.get_entity_index(x), filter(lambda x: x, map(lambda x:wiki_link_dict.get(id2entity_map[x.item()], None), pos_g.ndata['id']))))))))
         else:
             sg_embeds = model.proj_layer(sg_model.emb1_lookup(torch.LongTensor(list(filter(lambda x:x!=-1, map(lambda x:dictionary.get_entity_index(x), filter(lambda x: x, map(lambda x:wiki_link_dict.get(id2entity_map[x.item()], None), pos_g.ndata['id']))))))))
-        # print('sg_embeds = {}'.format(sg_embeds.size()))
         
-        # print(sg_model.emb0_lookup(torch.tensor([0, 1, 3, 5])))
-        # sg_embed_ids = list(map(lambda x:[word2id_map.get(y.lower(), None) for y in x.split()], title_list))
-        # for title in title_list:
-            # print(title.lower().split())
-            # print([word2id_map.get(y, None) for y in title.lower().split()])
-
-        # print('sg_embeds = {}'.format(torch.stack(sg_embeds).size()))
         reg_loss = torch.nn.functional.mse_loss(kb_embed, sg_embeds)
-        '''
-        if reg_loss> 1.0 or torch.isnan(reg_loss):
-            print('norm(kb_embed) = {}'.format(kb_embed.norm(2)))
-            print('norm(sg_embeds) = {}'.format(sg_embeds.norm(2)))
-            print('max(sg_embeds) = {}'.format(sg_embeds.max()))
-            print('min(sg_embeds) = {}'.format(sg_embeds.min()))
-            sys.exit(0)
-        '''
-        # print('reg_loss = {}'.format(reg_loss))
-
-        # wake up the sg producer if it's sleeping
-        # if not pause_sg_producer.is_set():
-            # pause_sg_producer.set()
+        
         
         forward_time += time.time() - start1
         sg_optimizer.zero_grad()
 
         start1 = time.time()
-        # print('ke loss = {}'.format(loss))
-
-        # loss_combined = loss + args.reg_coeff*reg_loss
 
         log_queue.put("Loss/KE/{}: step id:{} = {}".format(str(rank), step, loss))
         log_queue.put("Loss/reg_loss/{}: step id:{} = {}".format(str(rank), step, reg_loss))
 
         if iter_id >= reg_loss_start_epoch:
-            loss_combined = loss + args.reg_coeff*reg_loss
+            loss_combined = loss + args.balance_param*reg_loss
         else:
             loss_combined = loss # in first epoch, no alignment takes place
 
@@ -199,15 +156,10 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
 
         if iter_id >= reg_loss_start_epoch:
             sg_optimizer.step() # update skip-gram model based ion reg. loss
-            # print(model.proj_layer.weight.grad)
             proj_layer_optimizer.step()
-            # print(model.proj_layer.bias)
         
-        # print('training KE model')
         update_time += time.time() - start1
         logs.append(log)
-        # if step>10:
-            # break
         # force synchronize embedding across processes every X steps
         
         if args.force_sync_interval > 0 and (step + 1) % args.force_sync_interval == 0:
@@ -239,11 +191,6 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
             param_group['lr'] = lr
         
 
-    # print('end of epoch')
-    # print(model.proj_layer.bias)
-    # print(model.proj_layer.bias)
-
-    
     if args.valid and valid_samplers is not None:
         valid_start = time.time()
         if args.strict_rel_part or args.soft_rel_part:

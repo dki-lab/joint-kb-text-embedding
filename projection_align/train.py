@@ -88,7 +88,7 @@ class ArgParser(CommonArgParser):
         # self.add_argument("--sg_iters", type=int, default=5, help="no. of iters of SG model")
         self.add_argument("--n_iters", type=int, default=5, help="no. of iters of combined model")
         self.add_argument("--timeout", type=int, default=1000, help="time (in sec.) to wait before for incoming data batches before exiting training")
-        self.add_argument("--reg_coeff", type=float, default=100.0, help="value of reg. coeff.")
+        self.add_argument("--balance_param", type=float, default=100.0, help="value of balance parameter")
         self.add_argument("--seed", type=int, default=11117)
         self.add_argument("--transe-entity-ckpt-path", type=str, default=None)
         self.add_argument("--transe-relation-ckpt-path", type=str, default=None)
@@ -448,7 +448,7 @@ def main():
 
         epoch_start_time = time.time()
 
-        if args.reg_coeff > 0:
+        if args.balance_param > 0:
           log_queue.put('Epoch {} of skip-gram model'.format(iter_id))
           #***********************************
           # train 1 epoch of SG model
@@ -478,7 +478,7 @@ def main():
     model.entity_emb.save(args.save_path, args.dataset+'_'+model.model_name+'_entity')
     model.relation_emb.save(args.save_path, args.dataset+'_'+model.model_name+'_relation')
     
-    if args.reg_coeff > 0:
+    if args.balance_param > 0:
       sg_emb0_fname = os.path.join(args.save_path, args.dataset+'_'+model.model_name+'_emb0_sg'+'.npy')
       np.save(sg_emb0_fname, sg_model.emb0_lookup.weight.data.cpu().numpy())
 

@@ -53,6 +53,7 @@ from torch import optim
 import json
 import multiprocessing
 import random
+from copy import deepcopy
 
 class ArgParser(CommonArgParser):
     def __init__(self):
@@ -88,7 +89,7 @@ class ArgParser(CommonArgParser):
         # self.add_argument("--sg_iters", type=int, default=5, help="no. of iters of SG model")
         self.add_argument("--n_iters", type=int, default=5, help="no. of iters of combined model")
         self.add_argument("--timeout", type=int, default=1000, help="time (in sec.) to wait before for incoming data batches before exiting training")
-        self.add_argument("--reg_coeff", type=float, default=100.0, help="value of reg. coeff.")
+        self.add_argument("--balance_param", type=float, default=100.0, help="value of balance parameter")
         self.add_argument("--seed", type=int, default=11117)
         self.add_argument("--transe-entity-ckpt-path", type=str, default=None)
         self.add_argument("--transe-relation-ckpt-path", type=str, default=None)
@@ -481,7 +482,7 @@ def main():
         sg_emb1_fname = os.path.join(args.save_path, args.dataset+'_'+model.model_name+'_emb1_sg'+'.npy')
         np.save(sg_emb1_fname, sg_model.emb1_lookup.weight.data.cpu().numpy())
 
-        subprocess.run(['wikinew_word_ent', 'train-embedding', args.dump_db_file, args.dictionary_file, sg_emb0_fname, sg_emb1_fname, str(args.n_iters), str(iter_id), str(args.reg_coeff), os.path.join(args.save_path, 'emb_file'), '--pool-size', str(args.num_proc_train), '--dim-size', str(args.hidden_dim), '--mention-db', args.mention_db_file, '--link-graph', args.link_graph_file])
+        subprocess.run(['wikinew_word_ent', 'train-embedding', args.dump_db_file, args.dictionary_file, sg_emb0_fname, sg_emb1_fname, str(args.n_iters), str(iter_id), str(args.balance_param), os.path.join(args.save_path, 'emb_file'), '--pool-size', str(args.num_proc_train), '--dim-size', str(args.hidden_dim), '--mention-db', args.mention_db_file, '--link-graph', args.link_graph_file])
         print('Iteration {} of skip-gram model completed in {} sec.'.format(iter_id, time.time()-epoch_start_time))
 
         # copy skip-gram model weights from 'model_file' to PyTorch model

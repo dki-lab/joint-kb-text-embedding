@@ -103,20 +103,9 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
     # train KE model
     #******************************************************************************
     
-    # print('start of epoch')
-    # print(model.proj_layer.bias)
-
     for step in range(0, args.max_step_per_epoch):
-        # print('step = {}'.format(step))
         start1 = time.time()
-        # print(train_sampler)
         pos_g, neg_g = next(train_sampler)
-
-        # print('pos_g = {}'.format(pos_g))
-        # print('no. of nodes = {}'.format(pos_g.number_of_nodes()))
-        # print('no. of edges = {}'.format(pos_g.number_of_edges()))
-
-        # print('is_multigraph = {}'.format(pos_g.is_multigraph))
 
         sample_time += time.time() - start1
 
@@ -133,9 +122,6 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
         sg_optimizer.zero_grad()
 
         start1 = time.time()
-        # print('ke loss = {}'.format(loss))
-
-        # loss_combined = loss + args.reg_coeff*reg_loss
 
         log_queue.put("Loss/KE/{}: step id:{} = {}".format(str(rank), step, loss))
 
@@ -154,8 +140,6 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
         # print('training KE model')
         update_time += time.time() - start1
         logs.append(log)
-        # if step>10:
-            # break
         # force synchronize embedding across processes every X steps
         
         if args.force_sync_interval > 0 and (step + 1) % args.force_sync_interval == 0:
@@ -186,11 +170,6 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
         for param_group in sg_optimizer.param_groups:
             param_group['lr'] = lr
         
-
-    # print('end of epoch')
-    # print(model.proj_layer.bias)
-    # print(model.proj_layer.bias)
-
     
     if args.valid and valid_samplers is not None:
         valid_start = time.time()
@@ -212,9 +191,6 @@ def train_ke(args, iter_id, reg_loss_start_epoch, use_input_embedding, model, sg
     if args.strict_rel_part or args.soft_rel_part:
         model.writeback_relation(rank, rel_parts)
     
-    # print('complete end of epoch')
-    # print(model.proj_layer.bias)
-
 def test(args, model, test_samplers, rank=0, mode='Test', queue=None):
     if len(args.gpu) > 0:
         gpu_id = args.gpu[rank % len(args.gpu)] if args.mix_cpu_gpu and args.num_proc > 1 else args.gpu[0]
