@@ -37,8 +37,8 @@ This step is not needed if you download the pre-processed data as above.
 #### Download raw Wikidata and Wikipedia dumps
 
 TODO
-1. Download Wikidata raw dump file from [here](https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.gz) and set environment variable `RAW_WIKIDATA_JSON_FILE` to its location.
-2. Download Wikipedia raw dump file from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ERXwyla6Qn9IioXUFpV1x3EBpHvXEwIb22IZlOP29xDnxQ) and set environment variable `DUMP_FILE` to its location.
+1. Download Wikidata raw dump file from [here](https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.gz) and set environment variable `RAW_WIKIDATA_JSON_FILE` to its path.
+2. Download Wikipedia raw dump file from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ERXwyla6Qn9IioXUFpV1x3EBpHvXEwIb22IZlOP29xDnxQ) and set environment variable `DUMP_FILE` to its path.
 
 
 #### Pre-process Wikidata
