@@ -32,13 +32,15 @@ python setup.py install
 
 6. Download `wikipedia_links.json` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/Efz-xTWWiXtGmT8n7MPzuh0BKSDbT6a5hWoo0lfm3elb7g) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
+7. Download `rel_type_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EREYiat2yeRDq4l4YGuCVhUBwoBVhLtDzS29A6hMRn89Pg?e=IgoijP) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+
+8. Download `entity_child_dict.pickle` from [here]() and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
 
 #### Download raw Wikidata and Wikipedia dumps
 
-TODO
 1. Download Wikidata raw dump file from [here](https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.gz) and set environment variable `RAW_WIKIDATA_JSON_FILE` to its path.
 2. Download Wikipedia raw dump file from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ERXwyla6Qn9IioXUFpV1x3EBpHvXEwIb22IZlOP29xDnxQ) and set environment variable `DUMP_FILE` to its path.
 
@@ -88,12 +90,12 @@ python train.py --model_name TransE_l2 --batch_size 1000 --log_interval 10000 --
 
 #### Run link prediction evaluation for Test set (Both in support)
 ```
-python eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $WIKIDATA_FS_LP_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/entity_child_dict.json --sampler-type both
+python eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $WIKIDATA_FS_LP_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_PROC_JSON_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_PROC_JSON_DIR/entity_child_dict.json --sampler-type both
 ```
 
 #### Run link prediction evaluation for Test set (Missing support)
 ```
-python eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $WIKIDATA_FS_LP_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_missing_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MARCH_2020_TRIPLES_DIR/entity_child_dict.json --sampler-type both
+python eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 16 --data_path $WIKIDATA_FS_LP_DIR --data_files wikidata_train_full.tsv wikidata_test.tsv wikidata_test.tsv --format raw_udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $WIKIDATA_FS_LP_DIR/wikidata_test_missing_support.tsv --model_path $SAVE_DIR/ --rel-type-dict-file $WIKIDATA_PROC_JSON_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_PROC_JSON_DIR/entity_child_dict.json --sampler-type both
 ```
 
 ### Analogical Reasoning
