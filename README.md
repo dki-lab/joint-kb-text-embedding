@@ -1,4 +1,4 @@
-# kb-text-embed-study
+# joint-kb-text-embedding
 
 Code for the ACL 2021 paper **A Systematic Investigation of KB-Text Embedding Alignment at Scale**  
 **Authors**: Vardaan Pahuja, Yu Gu, Wenhu Chen, Mehdi Bahrami, Lei Liu, Wei-Peng Chen and Yu Su  
