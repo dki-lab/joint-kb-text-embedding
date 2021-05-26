@@ -53,6 +53,7 @@ python utils/generate_triples.py $WIKIDATA_PROC_JSON_DIR $WIKIDATA_TRIPLES_DIR/t
 
 #### Pre-process wikipedia raw dump
 ```
+mkdir $WIKIPEDIA_PROC_DATA
 wikipedia2vec build-dump-db $DUMP_FILE $WIKIPEDIA_PROC_DATA/db_file
 wikipedia2vec build-dictionary $WIKIPEDIA_PROC_DATA/db_file $WIKIPEDIA_PROC_DATA/dict_file
 wikipedia2vec build-link-graph $WIKIPEDIA_PROC_DATA/db_file $WIKIPEDIA_PROC_DATA/dict_file $WIKIPEDIA_PROC_DATA/link_graph_file
