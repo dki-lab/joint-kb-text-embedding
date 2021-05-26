@@ -34,7 +34,7 @@ python setup.py install
 
 7. Download `rel_type_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EREYiat2yeRDq4l4YGuCVhUBwoBVhLtDzS29A6hMRn89Pg?e=IgoijP) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
-8. Download `entity_child_dict.pickle` from [here]() and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+8. Download `entity_child_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EcEpxy7hnQBMjQdrFFUscJcBW63iSmxKN3OHerWJIiDR3g) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
