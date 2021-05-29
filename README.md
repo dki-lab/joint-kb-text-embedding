@@ -41,7 +41,7 @@ This step is not needed if you download the pre-processed data as above.
 
 #### Download raw Wikidata and Wikipedia dumps
 
-1. Download Wikidata raw dump file from [here](https://dumps.wikimedia.org/wikidatawiki/entities/latest-all.json.gz) and set environment variable `RAW_WIKIDATA_JSON_FILE` to its path.
+1. Download Wikidata raw dump file from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ESyvetnF6KpKvSAaQTWJoq4B8bp2sCBmK6awzMapcOyYcg) and set environment variable `RAW_WIKIDATA_JSON_FILE` to its path.
 2. Download Wikipedia raw dump file from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ERXwyla6Qn9IioXUFpV1x3EBpHvXEwIb22IZlOP29xDnxQ) and set environment variable `DUMP_FILE` to its path.
 
 
@@ -113,3 +113,13 @@ python train.py --model_name TransE_l2 --batch_size 1000 --log_interval 10000 --
 ```
 sh utils/analogy_complete_exp.sh
 ```
+
+## Pre-trained embeddings
+
+### Alignment using Entity Names
+
+### Same Embedding alignment
+ 
+### Projection alignment
+
+### Alignment using Wikipedia Anchors
