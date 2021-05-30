@@ -116,10 +116,19 @@ sh utils/analogy_complete_exp.sh
 
 ## Pre-trained embeddings
 
-### Alignment using Entity Names
+The pre-trained embeddings for each of the 4 alignment methods can be downloaded below. The description of the filenames is as follows:
+1. TransE_l2_emb0_sg.npy: Skip-gram Embeddings for (words + entities), Dictionary file: TODO
+2. TransE_l2_entity.npy: TransE embeddings for entities, Dictionary file: TODO
+3. TransE_l2_relation.npy: TransE embeddings for relations, Dictionary file: TODO
+
+### Alignment using Entity Names (balance param.=1.0)
+[Download Link](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/Es-hgly0a8hOsWBkZ4mOa9ABlhW02WZVaXea9ho53_YgUg)
 
 ### Same Embedding alignment
- 
-### Projection alignment
+[Download Link]()https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/ElxfuCrsVWJNrU8Rrl6mMygBFU0JiMk67D1MNrCeL8uZTQ
 
-### Alignment using Wikipedia Anchors
+### Projection alignment (balance param.=1e-3)
+[Download Link](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/Ej_xzDLRCBhFoSA8mCI4UbUBpwWHg8ZfHQIFR2BlUFuyHA)
+
+### Alignment using Wikipedia Anchors (balance param.=1.0)
+[Download Link](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EvxuXCCSvDNFtfWXa9SIqV4BLQqOiBv7EQzdOQnfGj34Hw)
