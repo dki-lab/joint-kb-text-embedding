@@ -26,15 +26,18 @@ python setup.py install
 
 2. Download pre-processed Wikipedia files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EoT_yv2sKbFPj_RzhiyZc2wB9VNXL5lz6ExZ7tb7rwaW9A) and store directory path into environment variable `WIKIPEDIA_PROC_DATA`
 
-4. Download Few-shot link prediction dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EpfqthRPp9FLrERxCnXwPSEBNryTYDzyx_4_HQ1yFlc9cg) and store directory path into environment variable `WIKIDATA_FS_LP_DIR`
+3. Download Few-shot link prediction dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EpfqthRPp9FLrERxCnXwPSEBNryTYDzyx_4_HQ1yFlc9cg) and store directory path into environment variable `WIKIDATA_FS_LP_DIR`
 
-5. Download Analogical Reasoning dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EgfwJgbJFGhKiuq7chlV7AkBl8oqW4N2qvzScMzHEfIlHA?e=E2h1GR) and store directory path into environment variable `ANALOGY_DATASET_DIR`
+4. Download Analogical Reasoning dataset from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EgfwJgbJFGhKiuq7chlV7AkBl8oqW4N2qvzScMzHEfIlHA?e=E2h1GR) and store directory path into environment variable `ANALOGY_DATASET_DIR`
 
-6. Download `wikipedia_links.json` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/Efz-xTWWiXtGmT8n7MPzuh0BKSDbT6a5hWoo0lfm3elb7g) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+5. Download `wikipedia_links.json` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/Efz-xTWWiXtGmT8n7MPzuh0BKSDbT6a5hWoo0lfm3elb7g) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
-7. Download `rel_type_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EREYiat2yeRDq4l4YGuCVhUBwoBVhLtDzS29A6hMRn89Pg?e=IgoijP) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+6. Download `rel_type_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EREYiat2yeRDq4l4YGuCVhUBwoBVhLtDzS29A6hMRn89Pg?e=IgoijP) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
-8. Download `entity_child_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EcEpxy7hnQBMjQdrFFUscJcBW63iSmxKN3OHerWJIiDR3g) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+7. Download `entity_child_dict.pickle` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/EcEpxy7hnQBMjQdrFFUscJcBW63iSmxKN3OHerWJIiDR3g) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+
+8. Download `ent_counter_names.json` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ESlMMt3K-5tImUO20Y9mQ84BbLIPfaNzBNdLmYePV4K0dQ) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
+
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
