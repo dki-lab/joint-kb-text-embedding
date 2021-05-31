@@ -53,7 +53,6 @@ setup(
     name='wikinew',
     version='1.0.4',
     description='A tool for learning vector representations of words and entities from Wikipedia',
-    long_description=open('README.md').read(),
     long_description_content_type='text/markdown',
     author='Studio Ousia',
     author_email='ikuya@ousia.jp',
