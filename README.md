@@ -38,6 +38,7 @@ python setup.py install
 
 8. Download `ent_counter_names.json` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ESlMMt3K-5tImUO20Y9mQ84BbLIPfaNzBNdLmYePV4K0dQ) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
+9. Download the COVID case-study triples dir from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/ErvVsCsfdIxMgybmKfFv_zkBKcl5yEa6_Lg1iRVIJk1mJQ) and and store the dir name in the environment variable `COVID_TRIPLES_DIR`.
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
@@ -56,6 +57,11 @@ python utils/create_proc_wikidata.py --input_json_file $RAW_WIKIDATA_JSON_FILE -
 python utils/generate_triples.py $WIKIDATA_PROC_JSON_DIR $WIKIDATA_TRIPLES_DIR/triples.tsv
 
 # We shuffle triples.tsv and split it into train-valid-test files (wikidata_train.tsv wikidata_valid.tsv wikidata_test.tsv) in the ratio 0.85:0.075:0.075.
+
+python utils/create_wikipedia_wikidata_link_dict.py --input_json_file $RAW_WIKIDATA_JSON_FILE --out_links_file $WIKIDATA_PROC_JSON_DIR/wikipedia_links.json
+python utils/create_entity_type_dict.py --wikidata-triples-file $WIKIDATA_TRIPLES_DIR/wikidata_train.tsv --out-dir $WIKIDATA_PROC_JSON_DIR
+python utils/create_rel_type_dict.py --wikidata-triples-file $WIKIDATA_TRIPLES_DIR/wikidata_train.tsv --entity-type-dict-file $WIKIDATA_PROC_JSON_DIR/entity_type_dict.json --out-dir $WIKIDATA_PROC_JSON_DIR
+python utils/create_counter_domain_intersection.py --triples-file $WIKIDATA_TRIPLES_DIR/wikidata_train.tsv --wiki-link-file $WIKIDATA_PROC_JSON_DIR/wikipedia_links.json --entity-file $WIKIDATA_TRIPLES_DIR/entities.tsv --dict-file $WIKIPEDIA_PROC_DATA/dict_file --out-dir $WIKIDATA_PROC_JSON_DIR
 ```
 
 #### Pre-process wikipedia raw dump
@@ -135,3 +141,27 @@ The pre-trained embeddings for each of the 4 alignment methods can be downloaded
 
 ### Alignment using Wikipedia Anchors (balance param.=1.0)
 [Download Link](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EvxuXCCSvDNFtfWXa9SIqV4BLQqOiBv7EQzdOQnfGj34Hw)
+
+## Covid case-study
+
+#### Run training
+
+```
+python train.py --model_name TransE_l2 --batch_size 1000 --log_interval 10000 --neg_sample_size 200 --regularization_coef=1e-9 --hidden_dim 300 --gamma 19.9 --lr 0.25 --batch_size_eval 16 --data_path $WIKIDATA_MAR_20_TRIPLES_DIR --data_files triples.tsv --format raw_udd_hrt --dump-db-file $WIKIPEDIA_PROC_DATA/db_file --dictionary-file $WIKIPEDIA_PROC_DATA/dict_file --mention-db-file $WIKIPEDIA_PROC_DATA/mention_db_file --link-graph-file $WIKIPEDIA_PROC_DATA/link_graph_file --num_thread 1 --neg_deg_sample --save_path $SAVE_DIR --balance_param $BALANCE_PARAM --reg-loss-start-epoch 0 --n_iters 20 --num_proc 8 --num_proc_train 32 --timeout 200 --wiki-link-file $WIKIDATA_MAR_20_PROC_JSON_DIR/wikipedia_links.json
+```
+
+#### Run Evaluation
+
+```
+# P5642 (Risk Factor)
+python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 1 --data_path $WIKIDATA_MAR_20_TRIPLES_DIR --data_files wikidata_train.tsv wikidata_test.tsv wikidata_test.tsv --format udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $COVID_TRIPLES_DIR/wikidata_test_covid_P5642.tsv --model_path $SAVE_DIR --rel-type-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/entity_child_dict.json --sampler-type tail
+
+# P780 (Symptoms)
+python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 1 --data_path $WIKIDATA_MAR_20_TRIPLES_DIR --data_files wikidata_train.tsv wikidata_test.tsv wikidata_test.tsv --format udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $COVID_TRIPLES_DIR/wikidata_test_covid_P780.tsv --model_path $SAVE_DIR --rel-type-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/entity_child_dict.json --sampler-type tail
+
+# P509 (Cause of death)
+python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 1 --data_path $WIKIDATA_MAR_20_TRIPLES_DIR --data_files wikidata_train.tsv wikidata_test.tsv wikidata_test.tsv --format udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $COVID_TRIPLES_DIR/wikidata_test_covid_P509.tsv --model_path $SAVE_DIR --rel-type-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/entity_child_dict.json --sampler-type head
+
+# P1050 (medical condition)
+python -u eval_type_constraint.py --model_name TransE_l2 --hidden_dim 300 --gamma 19.9 --batch_size_eval 1 --data_path $WIKIDATA_MAR_20_TRIPLES_DIR --data_files wikidata_train.tsv wikidata_test.tsv wikidata_test.tsv --format udd_hrt --num_thread 1 --num_proc 1 --neg_sample_size_eval 1000 --test-triples-file $COVID_TRIPLES_DIR/wikidata_test_covid_P1050.tsv --model_path $SAVE_DIR --rel-type-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/rel_type_dict.pickle --entity-child-dict-file $WIKIDATA_MAR_20_PROC_JSON_DIR/entity_child_dict.json --sampler-type head
+```
