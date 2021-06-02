@@ -22,7 +22,7 @@ python setup.py install
 
 ### Download data
 
-1. Download Wikidata triple files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EtvIP8Hyo6pIlgIEQbCsrwMBJAk9pf7SMooynsUkdzWBoA) and store directory path into environment variable `WIKIDATA_TRIPLES_DIR`
+1. Download Wikidata Dec. 2020 triple files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EtvIP8Hyo6pIlgIEQbCsrwMBJAk9pf7SMooynsUkdzWBoA) and store directory path into environment variable `WIKIDATA_TRIPLES_DIR`
 
 2. Download pre-processed Wikipedia files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EoT_yv2sKbFPj_RzhiyZc2wB9VNXL5lz6ExZ7tb7rwaW9A) and store directory path into environment variable `WIKIPEDIA_PROC_DATA`
 
@@ -38,7 +38,9 @@ python setup.py install
 
 8. Download `ent_counter_names.json` from [here](https://buckeyemailosu-my.sharepoint.com/:u:/g/personal/pahuja_9_buckeyemail_osu_edu/ESlMMt3K-5tImUO20Y9mQ84BbLIPfaNzBNdLmYePV4K0dQ) and save it in the dir corresponding to the environment variable `WIKIDATA_PROC_JSON_DIR`.
 
-9. Download the COVID case-study triples dir from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/ErvVsCsfdIxMgybmKfFv_zkBKcl5yEa6_Lg1iRVIJk1mJQ) and and store the dir name in the environment variable `COVID_TRIPLES_DIR`.
+9. Download Wikidata March 2020 triple files from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/EqpDSZAiVwlPm8w1UsXrbfABUEQzleegPiJhTsxjlxAa9A) and store directory path into environment variable `WIKIDATA_MAR_20_TRIPLES_DIR`
+
+10. Download the COVID case-study triples dir from [here](https://buckeyemailosu-my.sharepoint.com/:f:/g/personal/pahuja_9_buckeyemail_osu_edu/ErvVsCsfdIxMgybmKfFv_zkBKcl5yEa6_Lg1iRVIJk1mJQ) and and store the dir name in the environment variable `COVID_TRIPLES_DIR`.
 
 ### Pre-process data
 This step is not needed if you download the pre-processed data as above.
