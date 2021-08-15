@@ -1,6 +1,6 @@
 # joint-kb-text-embedding
 
-Code for the ACL 2021 paper **A Systematic Investigation of KB-Text Embedding Alignment at Scale**  
+Code for the ACL 2021 paper **A Systematic Investigation of KB-Text Embedding Alignment at Scale**  [paper link](https://aclanthology.org/2021.acl-long.139.pdf) [slides](acl_oral_slides.pdf)
 **Authors**: Vardaan Pahuja, Yu Gu, Wenhu Chen, Mehdi Bahrami, Lei Liu, Wei-Peng Chen and Yu Su  
 This implementation is based on the [DGL-KE](https://github.com/awslabs/dgl-ke) and [Wikipedia2Vec](https://github.com/wikipedia2vec/wikipedia2vec) libraries.
 
